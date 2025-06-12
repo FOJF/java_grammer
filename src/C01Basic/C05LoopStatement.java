@@ -164,9 +164,4 @@ public class C05LoopStatement {
 //        }
 
     }
-
-//    public static int euc(int a, int b) {
-//        if(a % b == 0) return b;
-//        return euc(b, a%b);
-//    }
 }
