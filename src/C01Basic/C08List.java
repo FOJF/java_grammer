@@ -92,7 +92,7 @@ public class C08List {
 
 //        리스트 안에 배열
         List<int[]> myList = new ArrayList<>();
-
+        LinkedList<Integer> a = new LinkedList<>();
         myList.add(new int[2]);
         myList.add(new int[3]);
 
