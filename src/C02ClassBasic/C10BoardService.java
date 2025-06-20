@@ -16,8 +16,8 @@ import java.util.Objects;
 //        7.서비스 종료
 public class C10BoardService {
     public static void main(String[] args) throws IOException {
-        Map<Integer, Author> authorMap = new HashMap<>();
-        Map<Integer, Post> postMap = new HashMap<>();
+        Map<Long, Author> authorMap = new HashMap<>();
+        Map<Long, Post> postMap = new HashMap<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
@@ -47,7 +47,7 @@ public class C10BoardService {
                 }
 
                 case "2" -> {
-                    for (int i = 0; i < Author.getLastId(); i++) {
+                    for (long i = 0; i < Author.getLastId(); i++) {
                         if (authorMap.get(i) == null) continue;
 
                         Author author = authorMap.get(i);
@@ -57,7 +57,7 @@ public class C10BoardService {
 
                 case "3" -> {
                     System.out.print("상세 조회 하고 싶은 유저ID 입력 : ");
-                    int id = Integer.parseInt(br.readLine());
+                    long id = Long.parseLong(br.readLine());
 
                     if (authorMap.containsKey(id)) System.out.println(authorMap.get(id));
                     else System.out.println("존재하지 않는 유저 ID");
@@ -71,7 +71,7 @@ public class C10BoardService {
                     String contents = br.readLine();
 
                     System.out.print("작성자 ID : ");
-                    int id = Integer.parseInt(br.readLine());
+                    long id = Long.parseLong(br.readLine());
                     if (authorMap.containsKey(id)) {
                         Author author = authorMap.get(id);
                         Post newPost = new Post(title, contents, author);
@@ -82,24 +82,27 @@ public class C10BoardService {
                 }
 
                 case "5" -> {
-                    for (int i = 0; i < Post.getLastId(); i++) {
+                    for (long i = 0; i < Post.getLastId(); i++) {
                         if (postMap.get(i) == null) continue;
 
                         Post post = postMap.get(i);
                         System.out.println("ID : " + post.getId() + ", 제목 : " + post.getTitle());
                     }
                 }
+
                 case "6" -> {
                     System.out.print("상세 조회 하고 싶은 게시글 ID 입력 : ");
-                    int id = Integer.parseInt(br.readLine());
+                    long id = Long.parseLong(br.readLine());
 
-                    if (authorMap.containsKey(id)) System.out.println(postMap.get(id));
+                    if (postMap.containsKey(id)) System.out.println(postMap.get(id));
                     else System.out.println("존재하지 않는 게시글 ID");
                 }
+
                 case "7" -> {
                     System.out.println("서비스가 종료되었습니다.");
                     return;
                 }
+
                 default -> System.out.println("!!없는 서비스 번호!!");
             }
         }
@@ -107,14 +110,15 @@ public class C10BoardService {
 }
 
 class Author {
-    private static int lastId = 0;
+    private static Long lastId = 0L;
 
-    private int id;
+//    일반적으로 클래스를 정의할 때 원시자료형은 wrapper클래스로 정의
+    private Long id;
     private String name;
     private String email;
     private String password;
 
-    private Map<Integer, Post> myPosts;
+    private Map<Long, Post> myPosts;
 
     public Author(String name, String email, String password) {
         this.id = lastId++;
@@ -125,15 +129,15 @@ class Author {
     }
 
     public Author(String email) { // 이메일 비교를 위한 생성자
-        this.id = -1;
+        this.id = -1L;
         this.email = email;
     }
 
-    public static int getLastId() {
+    public static long getLastId() {
         return lastId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -154,7 +158,7 @@ class Author {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Author author = (Author) o;
-        return id == author.id || Objects.equals(email, author.email);
+        return Objects.equals(id, author.id) || Objects.equals(email, author.email);
     }
 
     @Override
@@ -164,9 +168,9 @@ class Author {
 }
 
 class Post {
-    private static int lastId = 0;
+    private static Long lastId = 0L;
 
-    private int id;
+    private Long id;
     private String title;
     private String contents;
     private Author author;
@@ -179,11 +183,11 @@ class Post {
 
     }
 
-    public static int getLastId() {
+    public static long getLastId() {
         return lastId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
