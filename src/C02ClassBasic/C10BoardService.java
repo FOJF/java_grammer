@@ -180,7 +180,6 @@ class Post {
         this.title = title;
         this.contents = contents;
         this.author = author;
-
     }
 
     public static long getLastId() {
