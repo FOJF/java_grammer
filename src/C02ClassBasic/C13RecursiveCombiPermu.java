@@ -82,6 +82,14 @@ public class C13RecursiveCombiPermu {
         }
     }
 
+    /**
+     * 수들의 집합에서 순열을 만드는 함수(백트래킹)
+     * @param myList 순열을 만들 수들의 집합
+     * @param temp 임시 저장할 리스트
+     * @param target 뽑아야 할 순열의 크기
+     * @param visited 이미 뽑았던 수를 뽑지 않게 하기 위해서 확인할 불린 배열
+     * @param doubleList 최종 결과물을 담을 리스트
+     * */
     static void permu(List<Integer> myList, List<Integer> temp, List<List<Integer>> doubleList, int target, boolean[] visited) {
         if (temp.size() == target) {
             doubleList.add(new ArrayList<>(temp));      // doubleList.add(list); 아님 주의!!
